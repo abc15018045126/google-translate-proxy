@@ -3,12 +3,17 @@
 一个用于 Google Translate 的反向代理，旨在解决某些环境下的访问限制问题。
 
 ## 体验地址
-### (反向代理谷歌翻译)
+### (反向代理谷歌翻译页面)
 *   [https://abc15018045126.github.io/google-translate-proxy/](https://abc15018045126.github.io/google-translate-proxy/)
-*   [google-translate-proxy.abc15018045126.ip-dynamic.org](google-translate-proxy.abc15018045126.ip-dynamic.org) 
+*   [https://google-translate-proxy.abc15018045126.ip-dynamic.org](https://google-translate-proxy.abc15018045126.ip-dynamic.org) 
 ### (转发谷歌翻译)
-#### 替代https://translate.googleapis.com,get请求翻译结果 https://google-translate-proxy.abc15018045126.workers.dev/translate_a/single?client=gtx&sl={fromLang}&tl={toLang}&dt=t&q={text}
-*   [google-translate-proxy-workers.abc15018045126.ip-dynamic.org](google-translate-proxy-workers.abc15018045126.ip-dynamic.org)
+
+#### get请求翻译结果 
+*   [https://google-translate-proxy.abc15018045126.workers.dev/translate_a/single?client=gtx&sl={fromLang}&tl={toLang}&dt=t&q={text}](https://google-translate-proxy.abc15018045126.workers.dev/translate_a/single?client=gtx&sl={fromLang}&tl={toLang}&dt=t&q={text})
+#### 替代 
+*   [https://translate.googleapis.com](https://translate.googleapis.com)
+#### 代理翻译结果
+*   [https://google-translate-proxy-workers.abc15018045126.ip-dynamic.org](https://google-translate-proxy-workers.abc15018045126.ip-dynamic.org)
 *   [https://google-translate-proxy-min.deno.dev/](https://google-translate-proxy-min.deno.dev/)
 
 
