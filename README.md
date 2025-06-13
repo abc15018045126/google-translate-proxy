@@ -10,8 +10,17 @@
 
 #### get请求翻译结果 
 *   [https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromLang}&tl={toLang}&dt=t&q={text}](https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromLang}&tl={toLang}&dt=t&q={text})
+#### URL 示例：
+https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=zh-CN&dt=t&q=hello
+
+说明：
+- `sl=en` 表示源语言为英语。
+- `tl=zh-CN` 表示目标语言为简体中文。
+- `q=hello` 表示需要翻译的文本为 "hello"。
 #### 替代 
 *   [https://translate.googleapis.com](https://translate.googleapis.com)
+#### URL 示例：
+https://google-translate-proxy-workers.abc15018045126.ip-dynamic.org/translate_a/single?client=gtx&sl=en&tl=zh-CN&dt=t&q=hello
 #### 代理翻译结果
 *   [https://google-translate-proxy-workers.abc15018045126.ip-dynamic.org](https://google-translate-proxy-workers.abc15018045126.ip-dynamic.org)
 *   [https://google-translate-proxy-min.deno.dev/](https://google-translate-proxy-min.deno.dev/)
