@@ -1,13 +1,13 @@
 /**
  * Cloudflare Worker reverse proxy script for Google Translate API.
- * This version includes CORS support and is modified to directly proxy the incoming path and query string to translate.googleapis.com.
+ * This version includes CORS support and directly proxies the incoming path and query string to translate.googleapis.com.
  * For example: a request to /translate_a/single?... will be proxied to https://translate.googleapis.com/translate_a/single?...
- * This version also fixes the issue of only returning the first segment for long text translations; it now concatenates all translated segments.
+ * This version is modified to return the raw JSON response from the Google Translate API, instead of just the translated text.
  *
  * Cloudflare Worker 反向代理脚本，用于 Google Translate API。
- * 此版本增加了 CORS 支持，并修改为直接代理传入的路径和查询字符串到 translate.googleapis.com。
+ * 此版本增加了 CORS 支持，并直接代理传入的路径和查询字符串到 translate.googleapis.com。
  * 例如：请求 /translate_a/single?... 会被代理到 https://translate.googleapis.com/translate_a/single?...
- * 此版本修复了长文本翻译时只返回第一段的问题，现在会拼接所有翻译片段。
+ * 此版本修改为返回 Google Translate API 的原始 JSON 响应，而不是仅仅翻译后的文本。
  */
 
 // Listener for all incoming fetch events.
@@ -70,34 +70,14 @@ async function handleRequest(request) {
             });
         }
 
-        const apiText = await apiResponse.text();
-        let translatedText = "翻译失败"; // Default failure message. 默认失败信息。
+        // Create a new Response object from the upstream API response.
+        // This will preserve the original content (JSON) and headers.
+        // 从上游 API 响应创建新的响应对象。
+        // 这将保留原始内容（JSON）和头部信息。
+        const response = new Response(apiResponse.body, apiResponse);
 
-        try {
-            // Google Translate API returns a nested JSON array string.
-            // Example: [[["Translated segment 1", "Original segment 1",null,null,1], ["Translated segment 2", "Original segment 2",null,null,1]],null,"en",null,null,null,null,[]]
-            // We need to extract and concatenate all translated segments.
-            // Google Translate API 返回的是一个嵌套的 JSON 数组字符串。
-            // 示例: [[["翻译片段1", "原始片段1",null,null,1], ["翻译片段2", "原始片段2",null,null,1]],null,"en",null,null,null,null,[]]
-            // 我们需要提取并拼接所有翻译片段。
-            const jsonResponse = JSON.parse(apiText);
-            
-            // Fix: Iterate through all translation segments in jsonResponse[0] and concatenate them.
-            // 修复：遍历 jsonResponse[0] 中的所有翻译片段并拼接。
-            if (jsonResponse && jsonResponse[0] && Array.isArray(jsonResponse[0])) {
-                translatedText = jsonResponse[0].map(segment => segment[0]).join('');
-            } else {
-                console.error('Unexpected API response structure or no translation segments found:', apiText);
-            }
-        } catch (jsonError) {
-            console.error('Failed to parse JSON response from Google Translate API:', jsonError);
-        }
-
-        // Create a new Response object and add CORS headers.
-        // 创建新的响应对象并添加 CORS 头。
-        const response = new Response(translatedText, {
-            headers: { 'Content-Type': 'text/plain;charset=UTF-8' }
-        });
+        // Add CORS headers to the response.
+        // 在响应中添加 CORS 头。
         response.headers.set('Access-Control-Allow-Origin', '*'); // Allow access from all origins. 允许所有来源访问。
         response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allowed HTTP methods. 允许的 HTTP 方法。
         response.headers.set('Access-Control-Allow-Headers', 'Content-Type'); // Allowed request headers. 允许的请求头。
