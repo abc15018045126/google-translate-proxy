@@ -9,7 +9,7 @@
 ### (转发谷歌翻译)
 
 #### get请求翻译结果 
-*   [https://google-translate-proxy.abc15018045126.workers.dev/translate_a/single?client=gtx&sl={fromLang}&tl={toLang}&dt=t&q={text}](https://google-translate-proxy.abc15018045126.workers.dev/translate_a/single?client=gtx&sl={fromLang}&tl={toLang}&dt=t&q={text})
+*   [https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromLang}&tl={toLang}&dt=t&q={text}](https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromLang}&tl={toLang}&dt=t&q={text})
 #### 替代 
 *   [https://translate.googleapis.com](https://translate.googleapis.com)
 #### 代理翻译结果
