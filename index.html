@@ -15,9 +15,14 @@
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-2xl">
+    <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-2xl relative"> <!-- Added 'relative' for positioning child elements -->
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Cloudflare Worker 翻译客户端</h1>
         
+        <!-- GitHub Link - Moved to top right -->
+        <div class="absolute top-4 right-4 text-gray-600 text-xs"> <!-- 'absolute' for positioning, 'text-xs' for smaller size -->
+            <p>开源：<a href="https://github.com/abc15018045126/google-translate-proxy" target="_blank" class="text-blue-600 hover:underline">GitHub</a></p>
+        </div>
+
         <!-- Input Section -->
         <div class="mb-4">
             <label for="inputText" class="block text-gray-700 text-sm font-medium mb-2">输入要翻译的文本:</label>
